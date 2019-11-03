@@ -13,6 +13,7 @@ TagManager:
   - Enemy3
   - Enemy4
   - Enemy5
+  - Enemies
   layers:
   - Default
   - TransparentFX

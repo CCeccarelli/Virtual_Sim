@@ -14,14 +14,16 @@ public class InputScript : MonoBehaviour
 
     public GameObject player;
     public GameObject grabbed;
+    public GameObject gun;
     public GameObject controller;
 
-    public GameObject Enemy1;
-    public GameObject Enemy2;
-    public GameObject Enemy3;
-    public GameObject Enemy4;
-    public GameObject Enemy5;
+    public List<GameObject> Enemies = new List<GameObject>();
+    //public GameObject Enemy2;
+    //public GameObject Enemy3;
+    //public GameObject Enemy4;
+    //public GameObject Enemy5;
 
+    public bool grab = true;
     float disGrab;
 
     int timer = 0;
@@ -45,7 +47,7 @@ public class InputScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        timer++;
         Debug.DrawRay(transform.position, transform.forward, Color.green);
 
         if (!inputActive)
@@ -60,27 +62,29 @@ public class InputScript : MonoBehaviour
         bool triggerUp = OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger);
 
         bool touchPad = OVRInput.GetDown(OVRInput.Button.PrimaryTouchpad);
-        
+
         //Grab objects
-        if (grabbed == null)
+        //if (grabbed == null)
+        //{
+        if (grab == true)
         {
             RaycastHit hit;
 
 
-            if (Physics.Raycast(transform.position, transform.forward, out hit , Mathf.Infinity))
+            if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity))
             {
-                if (hit.collider != null)
-                {
-                    if (hit.collider.gameObject.tag == "Grabbable")
-                    {
-                        grabbed = hit.collider.gameObject;
+                //if (hit.collider != null)
+                //{
+                    //if (hit.collider.gameObject.tag == "Grabbable")
+                    //{
+                        grabbed = gun;
                         disGrab = hit.distance;
-                    }
-                }
+                    //}
+                //
 
             }
-
         }
+       // }
 
 
         if (grabbed != null)
@@ -96,37 +100,70 @@ public class InputScript : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity))
             {
-                //grabbed = null;
-                if (hit.collider.gameObject.tag == "Enemy1")
+                if (hit.collider.tag == "Enemies")
                 {
-                    Enemy1.SetActive(false);
+                    //grabbed = null;
+                    
+                        if (hit.collider.name == "Target_Dummy1")
+                        {
+                            Enemies[0].SetActive(false);
+                            //Enemies.RemoveAt(i);
+                            //Destroy(Enemies[i]);
+                        }
+                        else if (hit.collider.name == "Target_Dummy2")
+                        {
+                            Enemies[1].SetActive(false);
+                            //Enemies.RemoveAt(i);
+                            //Destroy(Enemies[i]);
+                        }
+                        else if (hit.collider.name == "Target_Dummy3")
+                        {
+                            Enemies[2].SetActive(false);
+                            //Enemies.RemoveAt(i);
+                            //Destroy(Enemies[i]);
+                        }
+                        else if (hit.collider.name == "Target_Dummy4")
+                        {
+                            Enemies[3].SetActive(false);
+                            //Enemies.RemoveAt(i);
+                            //Destroy(Enemies[i]);
+                        }
+                        else if (hit.collider.name == "Target_Dummy5")
+                        {
+                            Enemies[4].SetActive(false);
+                            //Enemies.RemoveAt(i);
+                            //Destroy(Enemies[i]);
+                        }
+                    
                 }
-                if (hit.collider.gameObject.tag == "Enemy2")
-                {
-                    Enemy2.SetActive(false);
-                }
-                if (hit.collider.gameObject.tag == "Enemy3")
-                {
-                    Enemy3.SetActive(false);
-                }
-                if (hit.collider.gameObject.tag == "Enemy4")
-                {
-                    Enemy4.SetActive(false);
-                }
-                if (hit.collider.gameObject.tag == "Enemy5")
-                {
-                    Enemy5.SetActive(false);
-                }
-               else if(Enemy1.activeSelf == false && Enemy2.activeSelf == false && Enemy3.activeSelf == false && Enemy4.activeSelf == false && Enemy5.activeSelf == false)
-                {
-                    Enemy1.SetActive(true);
-                    Enemy2.SetActive(true);
-                    Enemy3.SetActive(true);
-                    Enemy4.SetActive(true);
-                    Enemy5.SetActive(true);
-                }
-
             }
+               // if (hit.collider.gameObject.tag == "Enemy2")
+               // {
+               //     Enemy2.SetActive(false);
+               // }
+               // if (hit.collider.gameObject.tag == "Enemy3")
+               // {
+               //     Enemy3.SetActive(false);
+               // }
+               // if (hit.collider.gameObject.tag == "Enemy4")
+               // {
+               //     Enemy4.SetActive(false);
+               // }
+               // if (hit.collider.gameObject.tag == "Enemy5")
+               // {
+               //     Enemy5.SetActive(false);
+               // }
+               //else if(Enemy1.activeSelf == false && Enemy2.activeSelf == false && Enemy3.activeSelf == false && Enemy4.activeSelf == false && Enemy5.activeSelf == false && timer >= 600)
+               // {
+               //     Enemy1.SetActive(true);
+               //     Enemy2.SetActive(true);
+               //     Enemy3.SetActive(true);
+               //     Enemy4.SetActive(true);
+               //     Enemy5.SetActive(true);
+               //     timer = 0;
+               // }
+
+            
         }
 
 

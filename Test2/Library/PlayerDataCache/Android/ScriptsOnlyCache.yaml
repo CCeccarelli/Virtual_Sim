@@ -244,7 +244,7 @@ ScriptsOnlyBuild:
     className: BoundsLockedObject
   - hash:
       serializedVersion: 2
-      Hash: 45b8dc3d9ec8bbaa5b71389364d2aea3
+      Hash: 1572f0e868cc8e995cab03fa188b5caa
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: InputScript
