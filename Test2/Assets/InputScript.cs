@@ -15,9 +15,16 @@ public class InputScript : MonoBehaviour
     public GameObject player;
     public GameObject grabbed;
     public GameObject controller;
-    public GameObject Enemy;
+
+    public GameObject Enemy1;
+    public GameObject Enemy2;
+    public GameObject Enemy3;
+    public GameObject Enemy4;
+    public GameObject Enemy5;
 
     float disGrab;
+
+    int timer = 0;
 
     private void Awake()
     {
@@ -38,6 +45,7 @@ public class InputScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         Debug.DrawRay(transform.position, transform.forward, Color.green);
 
         if (!inputActive)
@@ -54,11 +62,12 @@ public class InputScript : MonoBehaviour
         bool touchPad = OVRInput.GetDown(OVRInput.Button.PrimaryTouchpad);
         
         //Grab objects
-        if (triggerDown && grabbed == null)
+        if (grabbed == null)
         {
             RaycastHit hit;
 
-            if(Physics.Raycast(transform.position, transform.forward, out hit , Mathf.Infinity))
+
+            if (Physics.Raycast(transform.position, transform.forward, out hit , Mathf.Infinity))
             {
                 if (hit.collider != null)
                 {
@@ -80,9 +89,44 @@ public class InputScript : MonoBehaviour
             grabbed.transform.rotation = controller.transform.rotation;
         }
 
+
+
         if (triggerUp)
         {
-            grabbed = null;
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity))
+            {
+                //grabbed = null;
+                if (hit.collider.gameObject.tag == "Enemy1")
+                {
+                    Enemy1.SetActive(false);
+                }
+                if (hit.collider.gameObject.tag == "Enemy2")
+                {
+                    Enemy2.SetActive(false);
+                }
+                if (hit.collider.gameObject.tag == "Enemy3")
+                {
+                    Enemy3.SetActive(false);
+                }
+                if (hit.collider.gameObject.tag == "Enemy4")
+                {
+                    Enemy4.SetActive(false);
+                }
+                if (hit.collider.gameObject.tag == "Enemy5")
+                {
+                    Enemy5.SetActive(false);
+                }
+               else if(Enemy1.activeSelf == false && Enemy2.activeSelf == false && Enemy3.activeSelf == false && Enemy4.activeSelf == false && Enemy5.activeSelf == false)
+                {
+                    Enemy1.SetActive(true);
+                    Enemy2.SetActive(true);
+                    Enemy3.SetActive(true);
+                    Enemy4.SetActive(true);
+                    Enemy5.SetActive(true);
+                }
+
+            }
         }
 
 
@@ -95,10 +139,7 @@ public class InputScript : MonoBehaviour
                 {
                     player.transform.position = hit.point + hit.normal * 4.0f;
                 }
-                if(hit.collider.gameObject.tag == "Enemy")
-                {
-                    Enemy.SetActive(false);
-                }
+                
             }
         }
                 

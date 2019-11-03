@@ -244,7 +244,7 @@ ScriptsOnlyBuild:
     className: BoundsLockedObject
   - hash:
       serializedVersion: 2
-      Hash: 46144796dfe9772c66da47b228c19bd2
+      Hash: 45b8dc3d9ec8bbaa5b71389364d2aea3
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: InputScript
@@ -1445,4 +1445,4 @@ ScriptsOnlyBuild:
   platform: 13
   scenePathNames:
   - Assets/Scenes/TestScene.unity
-  playerPath: C:/Users/Christian/Desktop/School/Year 4 Semester 1/Virtual Sim/Test2/Builds/build2.apk
+  playerPath: C:/Users/check/OneDrive/Desktop/Year 4 Semester 1/VirtualSimRange/Test2/Builds/build3.apk
