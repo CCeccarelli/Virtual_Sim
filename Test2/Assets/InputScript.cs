@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -16,6 +17,8 @@ public class InputScript : MonoBehaviour
     public GameObject grabbed;
     public GameObject gun;
     public GameObject controller;
+    public GameObject triggerCube;
+    public bool allDead = false;
 
     public List<GameObject> Enemies = new List<GameObject>();
     //public GameObject Enemy2;
@@ -26,7 +29,13 @@ public class InputScript : MonoBehaviour
     public bool grab = true;
     float disGrab;
 
-    int timer = 0;
+    //int timer = 0;
+
+    public Text timerText;
+    private float startTime;
+
+    private int counter;
+    float t; // We gon set this bitch to the time elapsed since start of the game
 
     private void Awake()
     {
@@ -42,12 +51,23 @@ public class InputScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        startTime = Time.time; // time is started as soon as the application starts. But we want to start the timer a little later. 
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer++;
+        if (allDead == false)
+        {
+            t = Time.time - startTime; // the amount of time since the time has started (still dont understand this completely)
+
+            string minutes = ((int)t / 60).ToString();
+            string seconds = (t % 60).ToString("f2");
+
+            timerText.text = minutes + ":" + seconds;
+        }
+
+        //timer++;
         Debug.DrawRay(transform.position, transform.forward, Color.green);
 
         if (!inputActive)
@@ -77,8 +97,9 @@ public class InputScript : MonoBehaviour
                 //{
                     //if (hit.collider.gameObject.tag == "Grabbable")
                     //{
-                        grabbed = gun;
-                        disGrab = hit.distance;
+                       grabbed = gun;
+                       disGrab = hit.distance; 
+                       // bullet mark texture appears here maybe??? 
                     //}
                 //
 
@@ -87,15 +108,15 @@ public class InputScript : MonoBehaviour
        // }
 
 
-        if (grabbed != null)
+        if (grabbed != null) // where the gun will spawn in relation to the oculus controller
         {
-            grabbed.transform.position = controller.transform.position + controller.transform.forward;// * disGrab;
+            grabbed.transform.position = controller.transform.position + controller.transform.forward; //controller.transform.forward;// - new Vector3(0, 0.2f, 0.5f);// * disGrab;
             grabbed.transform.rotation = controller.transform.rotation;
         }
 
 
 
-        if (triggerUp)
+        if (triggerUp) // when trigger is released
         {
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity))
@@ -134,39 +155,34 @@ public class InputScript : MonoBehaviour
                             //Enemies.RemoveAt(i);
                             //Destroy(Enemies[i]);
                         }
+                        else if(hit.collider.name == "Cubetest")
+                        {
+                            allDead = false;
+                            triggerCube.SetActive(true);
+
+                        //t = Time.time - t;
+                        startTime = Time.time;
+                    }
+
+                        // if all the dummies are destroyed, then setActive(true). 
                     
                 }
+
             }
-               // if (hit.collider.gameObject.tag == "Enemy2")
-               // {
-               //     Enemy2.SetActive(false);
-               // }
-               // if (hit.collider.gameObject.tag == "Enemy3")
-               // {
-               //     Enemy3.SetActive(false);
-               // }
-               // if (hit.collider.gameObject.tag == "Enemy4")
-               // {
-               //     Enemy4.SetActive(false);
-               // }
-               // if (hit.collider.gameObject.tag == "Enemy5")
-               // {
-               //     Enemy5.SetActive(false);
-               // }
-               //else if(Enemy1.activeSelf == false && Enemy2.activeSelf == false && Enemy3.activeSelf == false && Enemy4.activeSelf == false && Enemy5.activeSelf == false && timer >= 600)
-               // {
-               //     Enemy1.SetActive(true);
-               //     Enemy2.SetActive(true);
-               //     Enemy3.SetActive(true);
-               //     Enemy4.SetActive(true);
-               //     Enemy5.SetActive(true);
-               //     timer = 0;
-               // }
 
-            
+          
+          
+
         }
+        
+            if (Enemies[0].activeInHierarchy == false && Enemies[1].activeInHierarchy == false && Enemies[2].activeInHierarchy == false && Enemies[3].activeInHierarchy == false && Enemies[4].activeInHierarchy == false)
+            {
+                allDead = true;
+            Enemies[0].SetActive(true);
+                triggerCube.transform.position = new Vector3(0, 3.25f, 3.87f);
+            }
 
-
+        
         if (touchPad)
         {
             RaycastHit hit;
@@ -179,8 +195,9 @@ public class InputScript : MonoBehaviour
                 
             }
         }
-                
+
         
+
 
     }
 

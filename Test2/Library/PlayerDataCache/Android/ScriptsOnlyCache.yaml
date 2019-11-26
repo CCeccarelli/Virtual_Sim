@@ -13,6 +13,12 @@ ScriptsOnlyBuild:
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
+    UnityEngine.UI.dll:
+    - UnityEngine.EventSystems.EventSystem
+    - UnityEngine.EventSystems.StandaloneInputModule
+    - UnityEngine.UI.CanvasScaler
+    - UnityEngine.UI.GraphicRaycaster
+    - UnityEngine.UI.Text
   sceneClasses:
     Assets/Scenes/TestScene.unity:
     - Class: 1
@@ -50,26 +56,44 @@ ScriptsOnlyBuild:
     - Class: 109
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9880}
+      Script: {instanceID: 9826}
     - Class: 114
-      Script: {instanceID: 10018}
+      Script: {instanceID: 9894}
     - Class: 114
-      Script: {instanceID: 10068}
+      Script: {instanceID: 10032}
     - Class: 114
-      Script: {instanceID: 10534}
+      Script: {instanceID: 10052}
     - Class: 114
-      Script: {instanceID: 10576}
+      Script: {instanceID: 10082}
     - Class: 114
-      Script: {instanceID: 10744}
+      Script: {instanceID: 10548}
     - Class: 114
-      Script: {instanceID: 11860}
+      Script: {instanceID: 10590}
+    - Class: 114
+      Script: {instanceID: 10642}
+    - Class: 114
+      Script: {instanceID: 10758}
+    - Class: 114
+      Script: {instanceID: 11828}
+    - Class: 114
+      Script: {instanceID: 11876}
+    - Class: 114
+      Script: {instanceID: 12336}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
       Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
     - Class: 136
       Script: {instanceID: 0}
     - Class: 157
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
       Script: {instanceID: 0}
     - Class: 258
       Script: {instanceID: 0}
@@ -244,7 +268,7 @@ ScriptsOnlyBuild:
     className: BoundsLockedObject
   - hash:
       serializedVersion: 2
-      Hash: 1572f0e868cc8e995cab03fa188b5caa
+      Hash: 039f7ff53d93317c125212dd708b28f9
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: InputScript
@@ -1445,4 +1469,4 @@ ScriptsOnlyBuild:
   platform: 13
   scenePathNames:
   - Assets/Scenes/TestScene.unity
-  playerPath: C:/Users/check/OneDrive/Desktop/Year 4 Semester 1/VirtualSimRange/Test2/Builds/build3.apk
+  playerPath: C:/Users/Rishabh/Desktop/Year 4/Emerging Tech/GunProject/Virtual_Sim-master/Virtual_Sim-master/Test2/Builds/build4.apk
