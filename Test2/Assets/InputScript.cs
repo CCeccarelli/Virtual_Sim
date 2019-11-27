@@ -19,6 +19,7 @@ public class InputScript : MonoBehaviour
     public GameObject controller;
     public GameObject triggerCube;
     public bool allDead = false;
+    public AudioSource audioSounds;
 
     public List<GameObject> Enemies = new List<GameObject>();
     //public GameObject Enemy2;
@@ -32,6 +33,7 @@ public class InputScript : MonoBehaviour
     //int timer = 0;
 
     public Text timerText;
+    public Text test;
     private float startTime;
 
     private int counter;
@@ -52,6 +54,7 @@ public class InputScript : MonoBehaviour
     void Start()
     {
         startTime = Time.time; // time is started as soon as the application starts. But we want to start the timer a little later. 
+        audioSounds = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -115,16 +118,19 @@ public class InputScript : MonoBehaviour
         }
 
 
-
-        if (triggerUp) // when trigger is released
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity))
+       
+            if (triggerUp) // when trigger is released
             {
-                if (hit.collider.tag == "Enemies")
+            audioSounds.Play();
+            
+            RaycastHit hit;
+            
+            if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity))
                 {
-                    //grabbed = null;
-                    
+                    if (hit.collider.tag == "Enemies")
+                    {
+                        //grabbed = null;
+
                         if (hit.collider.name == "Target_Dummy1")
                         {
                             Enemies[0].SetActive(false);
@@ -155,30 +161,32 @@ public class InputScript : MonoBehaviour
                             //Enemies.RemoveAt(i);
                             //Destroy(Enemies[i]);
                         }
-                        else if(hit.collider.name == "Cubetest")
+                        else if (hit.collider.name == "Cubetest")
                         {
-                            allDead = false;
-                            triggerCube.SetActive(true);
-
+                        Enemies[0].SetActive(true);
+                        Enemies[1].SetActive(true);
+                        Enemies[2].SetActive(true);
+                        Enemies[3].SetActive(true);
+                        Enemies[4].SetActive(true);
+                       
+                        allDead = false;
+                            triggerCube.transform.position = new Vector3(0, 90.25f, 3.87f);
                         //t = Time.time - t;
-                        startTime = Time.time;
-                    }
+                        
+                            startTime = Time.time;
+                        }
 
                         // if all the dummies are destroyed, then setActive(true). 
-                    
+
+                    }
+
                 }
 
             }
-
-          
-          
-
-        }
         
             if (Enemies[0].activeInHierarchy == false && Enemies[1].activeInHierarchy == false && Enemies[2].activeInHierarchy == false && Enemies[3].activeInHierarchy == false && Enemies[4].activeInHierarchy == false)
             {
                 allDead = true;
-            Enemies[0].SetActive(true);
                 triggerCube.transform.position = new Vector3(0, 3.25f, 3.87f);
             }
 
@@ -227,4 +235,6 @@ public class InputScript : MonoBehaviour
     {
         inputActive = false;
     }
+
+    
 }
