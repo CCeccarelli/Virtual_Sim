@@ -20,6 +20,7 @@ public class InputScript : MonoBehaviour
     public GameObject triggerCube;
     public bool allDead = false;
     public AudioSource audioSounds;
+    LineRenderer lr;
 
     public List<GameObject> Enemies = new List<GameObject>();
     //public GameObject Enemy2;
@@ -30,13 +31,15 @@ public class InputScript : MonoBehaviour
     public bool grab = true;
     float disGrab;
 
+    bool toggleRay = true;
+
     //int timer = 0;
 
     public Text timerText;
-    public Text test;
+    public Text shotCounter; 
     private float startTime;
 
-    private int counter;
+    private int counter; 
     float t; // We gon set this bitch to the time elapsed since start of the game
 
     private void Awake()
@@ -55,12 +58,15 @@ public class InputScript : MonoBehaviour
     {
         startTime = Time.time; // time is started as soon as the application starts. But we want to start the timer a little later. 
         audioSounds = GetComponent<AudioSource>();
+        counter = 0;
+        lr = GetComponent<LineRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (allDead == false)
+
+        if (allDead == false) // if even one target is alive
         {
             t = Time.time - startTime; // the amount of time since the time has started (still dont understand this completely)
 
@@ -68,10 +74,20 @@ public class InputScript : MonoBehaviour
             string seconds = (t % 60).ToString("f2");
 
             timerText.text = minutes + ":" + seconds;
+
+            shotCounter.text = "Shot Counter: " + counter;
         }
 
         //timer++;
-        Debug.DrawRay(transform.position, transform.forward, Color.green);
+        if (toggleRay == true)
+        {
+            //Debug.DrawRay(transform.position, transform.forward, Color.green);
+            lr.enabled = true;
+        }
+        else
+        {
+            lr.enabled = false;
+        }
 
         if (!inputActive)
         {
@@ -121,17 +137,19 @@ public class InputScript : MonoBehaviour
        
             if (triggerUp) // when trigger is released
             {
-            audioSounds.Play();
-            
+            //audioSounds.Play();
+            counter++;
+
+
             RaycastHit hit;
             
             if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity))
                 {
-                    if (hit.collider.tag == "Enemies")
-                    {
-                        //grabbed = null;
 
-                        if (hit.collider.name == "Target_Dummy1")
+                if (hit.collider.tag == "Enemies")
+                    {
+                  
+                    if (hit.collider.name == "Target_Dummy1")
                         {
                             Enemies[0].SetActive(false);
                             //Enemies.RemoveAt(i);
@@ -140,39 +158,44 @@ public class InputScript : MonoBehaviour
                         else if (hit.collider.name == "Target_Dummy2")
                         {
                             Enemies[1].SetActive(false);
-                            //Enemies.RemoveAt(i);
-                            //Destroy(Enemies[i]);
-                        }
+                        
+                        //Enemies.RemoveAt(i);
+                        //Destroy(Enemies[i]);
+                    }
                         else if (hit.collider.name == "Target_Dummy3")
                         {
                             Enemies[2].SetActive(false);
-                            //Enemies.RemoveAt(i);
-                            //Destroy(Enemies[i]);
-                        }
+                        
+                        //Enemies.RemoveAt(i);
+                        //Destroy(Enemies[i]);
+                    }
                         else if (hit.collider.name == "Target_Dummy4")
                         {
                             Enemies[3].SetActive(false);
-                            //Enemies.RemoveAt(i);
-                            //Destroy(Enemies[i]);
-                        }
+                        
+                        //Enemies.RemoveAt(i);
+                        //Destroy(Enemies[i]);
+                    }
                         else if (hit.collider.name == "Target_Dummy5")
                         {
                             Enemies[4].SetActive(false);
-                            //Enemies.RemoveAt(i);
-                            //Destroy(Enemies[i]);
-                        }
+                        
+                        //Enemies.RemoveAt(i);
+                        //Destroy(Enemies[i]);
+                    }
                         else if (hit.collider.name == "Cubetest")
                         {
-                        Enemies[0].SetActive(true);
-                        Enemies[1].SetActive(true);
-                        Enemies[2].SetActive(true);
-                        Enemies[3].SetActive(true);
-                        Enemies[4].SetActive(true);
+                            counter = 0;
+                            Enemies[0].SetActive(true);
+                            Enemies[1].SetActive(true);
+                            Enemies[2].SetActive(true);
+                            Enemies[3].SetActive(true);
+                            Enemies[4].SetActive(true);
                        
-                        allDead = false;
+                            allDead = false;
                             triggerCube.transform.position = new Vector3(0, 90.25f, 3.87f);
-                        //t = Time.time - t;
-                        
+                            
+                            
                             startTime = Time.time;
                         }
 
@@ -188,24 +211,24 @@ public class InputScript : MonoBehaviour
             {
                 allDead = true;
                 triggerCube.transform.position = new Vector3(0, 3.25f, 3.87f);
-            }
+           
 
-        
-        if (touchPad)
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity))
-            {
-                if (hit.collider.gameObject.tag == "Floor")
-                {
-                    player.transform.position = hit.point + hit.normal * 4.0f;
-                }
-                
-            }
         }
 
-        
 
+        if (touchPad)
+        {
+            toggleRay = !toggleRay; // the togggle of line renderer
+            //RaycastHit hit;
+            //if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity))
+            //{
+            //   // if (hit.collider.gameObject.tag == "Floor") // movement code
+            //   // {
+            //   //     player.transform.position = hit.point + hit.normal * 4.0f;
+            //   // }
+                
+            //}
+        }
 
     }
 
