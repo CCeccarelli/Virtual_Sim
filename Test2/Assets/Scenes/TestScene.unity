@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.31807095, g: 0.32751578, b: 0.3844101, a: 1}
+  m_IndirectSpecularColor: {r: 0.3180768, g: 0.32752052, b: 0.384415, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -333,6 +333,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 24
@@ -1022,7 +1024,9 @@ MonoBehaviour:
   controller: {fileID: 1922476836}
   triggerCube: {fileID: 630312827}
   allDead: 0
-  audioSounds: {fileID: 0}
+  audioSounds: {fileID: 1327134577}
+  clip: {fileID: 8300000, guid: 198b7cc28e0a0334fb8633f5bea1b0cd, type: 3}
+  shootSound: 0
   Enemies:
   - {fileID: 236672402}
   - {fileID: 596615014}
@@ -2103,7 +2107,9 @@ MonoBehaviour:
   controller: {fileID: 1922476834}
   triggerCube: {fileID: 630312827}
   allDead: 0
-  audioSounds: {fileID: 0}
+  audioSounds: {fileID: 1327134577}
+  clip: {fileID: 8300000, guid: 198b7cc28e0a0334fb8633f5bea1b0cd, type: 3}
+  shootSound: 0
   Enemies:
   - {fileID: 236672402}
   - {fileID: 596615014}
@@ -2317,7 +2323,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &1327134578
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2327,14 +2333,15 @@ AudioSource:
   m_GameObject: {fileID: 1327134577}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e2f60564555cee54ab82a1f8173f714b, type: 3}
-  m_PlayOnAwake: 0
+  OutputAudioMixerGroup: {fileID: 24300001, guid: 1dd706bb85d8aef4e83a6229dbd62c36,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: 198b7cc28e0a0334fb8633f5bea1b0cd, type: 3}
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Spatialize: 0
+  Spatialize: 1
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
@@ -2422,7 +2429,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1327134577}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.8109999, y: 0, z: 34.7}
+  m_LocalPosition: {x: 0, y: 4.3, z: 0.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2441,13 +2448,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableSpatialization: 1
-  gain: 0
-  useInvSqr: 0
+  gain: 8
+  useInvSqr: 1
   near: 0.25
   far: 250
   volumetricRadius: 0
   reverbSend: 0
-  enableRfl: 0
+  enableRfl: 1
 --- !u!1 &1423528972
 GameObject:
   m_ObjectHideFlags: 0
@@ -2689,16 +2696,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2534866581884222612, guid: 86f02eda38ef34d46b08e767a9d7321a,
-        type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
-    - target: {fileID: 2534866581884222612, guid: 86f02eda38ef34d46b08e767a9d7321a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 86f02eda38ef34d46b08e767a9d7321a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2772,6 +2769,16 @@ PrefabInstance:
     - target: {fileID: -2416733968201007103, guid: 86f02eda38ef34d46b08e767a9d7321a,
         type: 3}
       propertyPath: m_ReceiveShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2534866581884222612, guid: 86f02eda38ef34d46b08e767a9d7321a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 2534866581884222612, guid: 86f02eda38ef34d46b08e767a9d7321a,
+        type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3102,6 +3109,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 22

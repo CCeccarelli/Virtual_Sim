@@ -12,15 +12,17 @@ public class InputScript : MonoBehaviour
     private bool hasController = false;
     private bool inputActive = true;
 
-
+    
     public GameObject player;
     public GameObject grabbed;
     public GameObject gun;
     public GameObject controller;
     public GameObject triggerCube;
     public bool allDead = false;
-    public AudioSource audioSounds;
+    public GameObject audioSounds;
+    public AudioClip clip;
     LineRenderer lr;
+    public bool shootSound = false;
 
     public List<GameObject> Enemies = new List<GameObject>();
     //public GameObject Enemy2;
@@ -42,6 +44,7 @@ public class InputScript : MonoBehaviour
     private int counter; 
     float t; // We gon set this bitch to the time elapsed since start of the game
 
+    int timer = 0;
     private void Awake()
     {
         OVRManager.HMDMounted += PlayerFound;
@@ -57,7 +60,8 @@ public class InputScript : MonoBehaviour
     void Start()
     {
         startTime = Time.time; // time is started as soon as the application starts. But we want to start the timer a little later. 
-        audioSounds = GetComponent<AudioSource>();
+        audioSounds.GetComponent<AudioSource>();
+        
         counter = 0;
         lr = GetComponent<LineRenderer>();
     }
@@ -137,10 +141,10 @@ public class InputScript : MonoBehaviour
        
             if (triggerUp) // when trigger is released
             {
-            //audioSounds.Play();
+            
             counter++;
-
-
+            shootSound = true;
+            
             RaycastHit hit;
             
             if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity))
@@ -204,8 +208,8 @@ public class InputScript : MonoBehaviour
                     }
 
                 }
-
-            }
+        }
+       
         
             if (Enemies[0].activeInHierarchy == false && Enemies[1].activeInHierarchy == false && Enemies[2].activeInHierarchy == false && Enemies[3].activeInHierarchy == false && Enemies[4].activeInHierarchy == false)
             {
@@ -229,6 +233,22 @@ public class InputScript : MonoBehaviour
                 
             //}
         }
+
+        if(shootSound == true)
+        {
+            audioSounds.SetActive(true);
+            timer++;
+            
+        }
+        if(timer > 30)
+        {
+            shootSound = false;
+            audioSounds.SetActive(false);
+            timer = 0;
+        }
+        
+        
+       
 
     }
 
