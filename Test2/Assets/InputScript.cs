@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using System.IO.Ports;
 
 public class InputScript : MonoBehaviour
 {
@@ -13,8 +12,6 @@ public class InputScript : MonoBehaviour
     private bool hasController = false;
     private bool inputActive = true;
 
-    SerialPort ardIn;
-    public bool useArd = false;
     
     public GameObject player;
     public GameObject grabbed;
@@ -36,7 +33,7 @@ public class InputScript : MonoBehaviour
     public bool grab = true;
     float disGrab;
 
-    public bool toggleRay = true;
+    bool toggleRay = true;
 
     //int timer = 0;
 
@@ -62,22 +59,11 @@ public class InputScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (useArd)
-        {
-            ardIn = new SerialPort("COM5", 9600); // Arduino Input
-        }
         startTime = Time.time; // time is started as soon as the application starts. But we want to start the timer a little later. 
         audioSounds.GetComponent<AudioSource>();
         
         counter = 0;
         lr = GetComponent<LineRenderer>();
-        
-        
-        if (useArd)
-        {
-            ardIn.Open(); // opening serial port
-            ardIn.ReadTimeout = 1; // change it to 0 if its giving issues with potentiometer
-        }
     }
 
     // Update is called once per frame
@@ -247,34 +233,8 @@ public class InputScript : MonoBehaviour
                 
             //}
         }
-        if (useArd)
-        {
-            if (ardIn.IsOpen)
-            {
-                try
-                {
-                    string ardString = ardIn.ReadLine();
-                    //    print(ardString); // just for debugging purposes
-                    Debug.Log(ardString);
-                    string[] valueString = ardString.Split(',');
 
-                    if (valueString[1] == "1") //valueString[0] uses potentiometer, and valueString[1] uses button. so if buton = "1"(button pushed), do something. 
-                    {
-                        toggleRay = !toggleRay; // the togggle of line renderer
-
-                        Debug.Log("Button Pressed!");
-                    }
-
-
-                }
-                catch (System.Exception)
-                {
-
-                }
-            }
-        }
-
-        if (shootSound == true)
+        if(shootSound == true)
         {
             audioSounds.SetActive(true);
             timer++;
